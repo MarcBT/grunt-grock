@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp']
+      tests: ['docs', '<%= grock.custom_options.options.out %>']
     },
 
     // Configuration to be run (and then tested).
@@ -36,11 +36,11 @@ module.exports = function(grunt) {
           github: false,
           index: 'Gruntfile.js',
           out: 'docCustomFolder',
-          style: 'solarized',
+          style: 'thin',
           verbose: true
         },
         files: {
-          src: ['README.md','./**/*.js', '!./docs/**','!./node_modules/**']
+          src: ['./README.md','./**/*.js', '!./docs/**','!./<%= grock.custom_options.options.out %>/**','!./node_modules/**']
         }
       }
     },

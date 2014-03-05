@@ -1,6 +1,7 @@
 'use strict';
 
 var grunt = require('grunt');
+var gf = grunt.file;
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -27,13 +28,25 @@ exports.grock = {
     // setup here if necessary
     done();
   },
-  default_options: function(test) {
-    test.expect(1);
-
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
-
+  custom_options: function(test) {
+    // Tests :
+    // Check if Folder 'out' has been created
+    // Checks if documentation files have been created
+    
+    var config = grunt.config.get('grock').custom_options;
+    var outFolder = config.options.out;
+    var files = gf.expand(config.files.src);
+    var index = outFolder + '/index.html';
+        
+    test.expect(1 + files.length);
+        
+    test.ok(grunt.file.exists(outFolder+ '/toc.js'), 'Output folder not created or empty');
+    for (var i = 0; i<files.length; i++){
+      var outFile = outFolder + '/' + files[i].split('./')[1] + '.html';
+      test.ok(gf.exists(outFile) || gf.exists(index), 'File ' + outFile + ' not created');
+    }
+        
     test.done();
+
   }
 };

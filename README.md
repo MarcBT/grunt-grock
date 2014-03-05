@@ -68,7 +68,7 @@ grunt.initConfig({
       verbose: true
     },
     files: {
-      src: ['README.md','./**/*.js', '!./docs/**','!./node_modules/**'],
+      src: ['./README.md','./**/*.js', '!./docs/**','!./node_modules/**'],
     },
   },
 });
