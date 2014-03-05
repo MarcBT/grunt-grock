@@ -16,36 +16,33 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'tasks/*.js',
-        '<%= nodeunit.tests %>',
+        '<%= nodeunit.tests %>'
       ],
       options: {
-        jshintrc: '.jshintrc',
-      },
+        jshintrc: '.jshintrc'
+      }
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['tmp']
     },
 
     // Configuration to be run (and then tested).
     grock: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
-      },
+//      default_options: {},
       custom_options: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!',
+          github: false,
+          index: 'Gruntfile.js',
+          out: 'testingDocs',
+          style: 'solarized',
+          verbose: true
         },
         files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
-        },
-      },
+          src: ['README.md','./**/*.js', '!./docs/**','!./node_modules/**']
+        }
+      }
     },
 
     // Unit tests.

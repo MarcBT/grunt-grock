@@ -16,33 +16,23 @@ module.exports = function(grunt) {
   var grock = require('grock').generator;
 
   grunt.registerMultiTask('grock', 'The best Grunt plugin ever.', function() {
-    var done = this.async();
+    var done = this.async(),
+        options = this.options(),
+        glob = (this.filesSrc && this.filesSrc.length > 0) ? this.filesSrc : 'lib/*.coffee';
     
-    var defaults = {
-	  _: [],
-	  help: false,
-	  '?': false,
-	  version: false,
-	  V: false,
-	  verbose: false,
-	  v: false,
-	  github: false,
-	  glob: ['Gruntfile.js'],
-	  out: 'docs',
-	  style: 'thin',
-	  index: 'Readme.md',
-	  i: 'Readme.md',
-	  indexes: 'Readme.md',
-	  root: '.',
-	  'repository-url': false,
-	  '$0': 'grock',
-	  start: process.hrtime()
-	};
-    
-    var options = this.options;
-    
-    grock(defaults);
-    
+    var args = {
+      glob: glob,
+      out: options.out || 'docs/',
+      style: options.style || 'solarized',
+      verbose: options.verbose || false,
+      index: options.index ||'Readme.md',
+      root: options.root || '.',
+      github: options.github || false,
+      start: process.hrtime()
+    };
+
+    grock(args);
+
   });
 
 };
