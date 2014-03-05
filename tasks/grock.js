@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
   var grock = require('grock').generator;
 
-  grunt.registerMultiTask('grock', 'The best Grunt plugin ever.', function() {
+  grunt.registerMultiTask('grock', 'A simple grunt task to generate a project\'s documentation using Grock.', function() {
     var done = this.async(),
         options = this.options(),
         glob = (this.filesSrc && this.filesSrc.length > 0) ? this.filesSrc : 'lib/*.coffee';

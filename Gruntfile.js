@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         options: {
           github: false,
           index: 'Gruntfile.js',
-          out: 'testingDocs',
+          out: 'docCustomFolder',
           style: 'solarized',
           verbose: true
         },

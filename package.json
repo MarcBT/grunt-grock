@@ -1,6 +1,6 @@
 {
   "name": "grunt-grock",
-  "description": "The best Grunt plugin ever.",
+  "description": "A simple grunt task to generate a project's documentation using Grock.",
   "version": "0.1.0",
   "homepage": "https://github.com/MarcBT/grunt-grock",
   "author": {
