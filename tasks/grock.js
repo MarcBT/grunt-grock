@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     var done = this.async(),
         options = this.options(),
         glob = (this.filesSrc && this.filesSrc.length > 0) ? this.filesSrc : 'lib/*.coffee';
-    
+
     var args = {
       glob: glob,
       out: options.out || 'docs/',

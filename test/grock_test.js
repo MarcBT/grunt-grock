@@ -33,9 +33,9 @@ exports.grock = {
     // Check if Folder 'out' has been created
     // Checks if documentation files have been created
     
-    var config = grunt.config.get('grock').custom_options;
+    var config = grunt.config.get('grock');
     var outFolder = config.options.out;
-    var files = gf.expand(config.files.src);
+    var files = gf.expand(config.files);
     var index = outFolder + '/index.html';
         
     test.expect(1 + files.length);
