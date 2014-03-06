@@ -1,6 +1,6 @@
 # grunt-grock
 
-> A simple grunt task to generate a project's documentation using Grock.
+> A simple grunt task to generate a project's documentation with [Grock](https://github.com/killercup/grock).
 
 ## Getting Started
 This plugin requires Grunt `0.4.0`
@@ -19,63 +19,34 @@ grunt.loadNpmTasks('grunt-grock');
 
 ## The "grock" task
 
-### Overview
+### Usage
 In your project's Gruntfile, add a section named `grock` to the data object passed into `grunt.initConfig()`.
 
-```js
-grunt.initConfig({
-  grock: {
-    options: {
-      // Task-specific options go here.
-    },
-    files: {
-      src: [/* Files to include into (exclude from) the generated documentation go here. */]
-    },
-  },
-});
-```
-
-### Options
-
-The list of available options is presented into the [`grock` repository](https://github.com/killercup/grock).
-
-
-### Usage Examples
-
-#### Default Options
-This configuration generates documentation by using the defaults options defined into the [`grock` repository](https://github.com/killercup/grock).
-
-```js
-grunt.initConfig({
-  grock: {
-    options: {},
-    files: {},
-  },
-});
-```
-
-#### Custom Options
-This configuration uses the custom `options` to generates a documentation for the files specified in `src`
+Just adapt the following configuration to generate the structured documentation of your files.
 
 ```js
 grunt.initConfig({
   grock: {
     options: {
+      // Grock options
       github: false,
       index: 'Gruntfile.js',
       out: 'docCustomFolder',
       style: 'thin',
       verbose: true
     },
-    files: {
-      src: ['./README.md','./**/*.js', '!./docs/**','!./node_modules/**'],
-    },
+    files: [
+      './README.md','./**/*.js', // Generate documentation for these files
+      '!./docs/**','!./node_modules/**' //  Do not generate documentation for these files
+    ]
   },
 });
 ```
 
+### Options
+
+Take a look at the [`grock` repository](https://github.com/killercup/grock) to see the list of available options.
+
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
