@@ -31,7 +31,9 @@ module.exports = function(grunt) {
       start: process.hrtime()
     };
 
-    grock(args);
+    grock(args)
+      .then(function () { done(); }) // doc generation successful
+      .then(null, function () { done(false); }); // there was an error;
 
   });
 
