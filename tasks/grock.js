@@ -21,15 +21,15 @@ module.exports = function(grunt) {
         glob = (this.filesSrc && this.filesSrc.length > 0) ? this.filesSrc : 'lib/*.coffee';
 
     var args = {
-      glob: glob,
-      out: options.out || 'docs/',
-      style: options.style || 'solarized',
-      verbose: options.verbose || false,
-      index: options.index ||'Readme.md',
-      root: options.root || '.',
-      github: options.github || false,
+      'glob': glob,
+      'out': options.out || 'docs/',
+      'style': options.style || 'solarized',
+      'verbose': options.verbose || false,
+      'index': options.index ||'Readme.md',
+      'root': options.root || '.',
+      'github': options.github || false,
       'whitespace-after-token': options.whitespaceAfterToken || false,
-      start: process.hrtime()
+      'start': process.hrtime()
     };
 
     grock(args)
