@@ -28,6 +28,7 @@ module.exports = function(grunt) {
       index: options.index ||'Readme.md',
       root: options.root || '.',
       github: options.github || false,
+      'whitespace-after-token': options.whitespaceAfterToken || false,
       start: process.hrtime()
     };
 
