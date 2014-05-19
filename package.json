@@ -1,7 +1,7 @@
 {
   "name": "grunt-grock",
   "description": "A simple grunt task to generate a project's documentation using Grock.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/MarcBT/grunt-grock",
   "author": {
     "name": "Marc Beuret",
