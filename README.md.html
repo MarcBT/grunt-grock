@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>grunt-grock - README.md</title>
+
+  <link rel="stylesheet" href="assets/style.css">
+  
+    
+      <style>
+        
+      </style>
+    
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+  <meta name="groc-relative-root" content=""/>
+  <meta name="groc-document-path" content="README.md"/>
+  
+</head>
+<body>
+  <div id="file-area">
+    <div id="meta">
+      <code class="file-path">
+      
+        README.md
+      
+      </code>
+    </div>
+    <div id="document">
+    
+      <div class="segment">
+      
+        <div class="comments ">
+          <div class="wrapper"><h1 id="grunt-grock"><a href="#grunt-grock" class="anchor"></a>grunt-grock</h1><blockquote>
+<p>A simple grunt task to generate a project&#39;s documentation with <a href="https://github.com/killercup/grock">Grock</a>.</p>
+</blockquote>
+<h2 id="getting-started"><a href="#getting-started" class="anchor"></a>Getting Started</h2><p>This plugin requires Grunt <code>0.4.0</code></p>
+<p>If you haven&#39;t used <a href="http://gruntjs.com/">Grunt</a> before, be sure to check out the <a href="http://gruntjs.com/getting-started">Getting Started</a> guide, as it explains how to create a <a href="http://gruntjs.com/sample-gruntfile">Gruntfile</a> as well as install and use Grunt plugins. Once you&#39;re familiar with that process, you may install this plugin with this command:</p>
+<pre><code class="lang-shell">npm install grunt-grock --save-dev
+</code></pre>
+<p>Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:</p>
+<pre><code class="lang-js">grunt.loadNpmTasks(<span class="hljs-string">'grunt-grock'</span>);
+</code></pre>
+<h2 id="the-quot-grock-quot-task"><a href="#the-quot-grock-quot-task" class="anchor"></a>The &quot;grock&quot; task</h2><h3 id="usage"><a href="#usage" class="anchor"></a>Usage</h3><p>In your project&#39;s Gruntfile, add a section named <code>grock</code> to the data object passed into <code>grunt.initConfig()</code>.</p>
+<p>Just adapt the following configuration to generate the structured documentation of your files.</p>
+<pre><code class="lang-js">grunt.initConfig({
+  grock: {
+    options: {
+      <span class="hljs-comment">// Grock options</span>
+      github: <span class="hljs-literal">false</span>,
+      index: <span class="hljs-string">'Gruntfile.js'</span>,
+      out: <span class="hljs-string">'docCustomFolder'</span>,
+      style: <span class="hljs-string">'thin'</span>,
+      verbose: <span class="hljs-literal">true</span>
+    },
+    files: [
+      <span class="hljs-string">'./README.md'</span>,<span class="hljs-string">'./**/*.js'</span>, <span class="hljs-comment">// Generate documentation for these files</span>
+      <span class="hljs-string">'!./docs/**'</span>,<span class="hljs-string">'!./node_modules/**'</span> <span class="hljs-comment">//  Do not generate documentation for these files</span>
+    ]
+  },
+});
+</code></pre>
+<h3 id="options"><a href="#options" class="anchor"></a>Options</h3><p>Take a look at the <a href="https://github.com/killercup/grock"><code>grock</code> repository</a> to see the list of available options.</p>
+<h2 id="contributing"><a href="#contributing" class="anchor"></a>Contributing</h2><p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>.</p>
+</div>
+        </div>
+      
+      
+      </div>
+    
+    </div>
+  </div>
+
+  <script src="toc.js"></script>
+  <script src="assets/libs.js"></script>
+  <script src="assets/behavior.js"></script>
+
+  
+    
+      <script>
+        
+      </script>
+    
+  
+</body>
+</html>

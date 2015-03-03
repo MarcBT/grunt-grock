@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> - grock_test.js</title>
+
+  <link rel="stylesheet" href="../assets/style.css">
+  
+    
+      <style>
+        
+      </style>
+    
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+  <meta name="groc-relative-root" content="../"/>
+  <meta name="groc-document-path" content="test/grock_test.js"/>
+  
+</head>
+<body>
+  <div id="file-area">
+    <div id="meta">
+      <code class="file-path">
+      
+        test/grock_test.js
+      
+      </code>
+    </div>
+    <div id="document">
+    
+      <div class="segment">
+      
+      
+        <div class="code"><pre class="wrapper"><span class="hljs-pi">'use strict'</span>;
+
+<span class="hljs-keyword">var</span> grunt = <span class="hljs-built_in">require</span>(<span class="hljs-string">'grunt'</span>);
+<span class="hljs-keyword">var</span> gf = grunt.file;
+</pre></div>
+      
+      </div>
+    
+      <div class="segment">
+      
+        <div class="comments ">
+          <div class="wrapper"><p>  ======== A Handy Little Nodeunit Reference ========
+  <a href="https://github.com/caolan/nodeunit">https://github.com/caolan/nodeunit</a></p>
+<p>  Test methods:
+    test.expect(numAssertions)
+    test.done()
+  Test assertions:
+    test.ok(value, [message])
+    test.equal(actual, expected, [message])
+    test.notEqual(actual, expected, [message])
+    test.deepEqual(actual, expected, [message])
+    test.notDeepEqual(actual, expected, [message])
+    test.strictEqual(actual, expected, [message])
+    test.notStrictEqual(actual, expected, [message])
+    test.throws(block, [error], [message])
+    test.doesNotThrow(block, [error], [message])
+    test.ifError(value)</p>
+</div>
+        </div>
+      
+      
+        <div class="code"><pre class="wrapper">exports.grock = {
+  setUp: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(done)</span> </span>{</pre></div>
+      
+      </div>
+    
+      <div class="segment">
+      
+        <div class="comments ">
+          <div class="wrapper"><p>setup here if necessary</p>
+</div>
+        </div>
+      
+      
+        <div class="code"><pre class="wrapper">    done();
+  },
+  custom_options: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(test)</span> </span>{</pre></div>
+      
+      </div>
+    
+      <div class="segment">
+      
+        <div class="comments ">
+          <div class="wrapper"><p>Tests :
+Check if Folder &#39;out&#39; has been created
+Checks if documentation files have been created</p>
+</div>
+        </div>
+      
+      
+        <div class="code"><pre class="wrapper">    
+    <span class="hljs-keyword">var</span> config = grunt.config.get(<span class="hljs-string">'grock'</span>);
+    <span class="hljs-keyword">var</span> outFolder = config.options.out;
+    <span class="hljs-keyword">var</span> files = gf.expand(config.files);
+    <span class="hljs-keyword">var</span> index = outFolder + <span class="hljs-string">'/index.html'</span>;
+        
+    test.expect(<span class="hljs-number">1</span> + files.length);
+        
+    test.ok(grunt.file.exists(outFolder+ <span class="hljs-string">'/toc.js'</span>), <span class="hljs-string">'Output folder not created or empty'</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i&lt;files.length; i++){
+      <span class="hljs-keyword">var</span> outFile = outFolder + <span class="hljs-string">'/'</span> + files[i].split(<span class="hljs-string">'./'</span>)[<span class="hljs-number">1</span>] + <span class="hljs-string">'.html'</span>;
+      test.ok(gf.exists(outFile) || gf.exists(index), <span class="hljs-string">'File '</span> + outFile + <span class="hljs-string">' not created'</span>);
+    }
+        
+    test.done();
+
+  }
+};
+</pre></div>
+      
+      </div>
+    
+    </div>
+  </div>
+
+  <script src="../toc.js"></script>
+  <script src="../assets/libs.js"></script>
+  <script src="../assets/behavior.js"></script>
+
+  
+    
+      <script>
+        
+      </script>
+    
+  
+</body>
+</html>
