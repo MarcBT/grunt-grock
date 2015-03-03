@@ -31,7 +31,6 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     grock: {
       options: {
-        github: false,
         index: 'Gruntfile.js',
         out: 'docCustomFolder',
         style: 'thin',

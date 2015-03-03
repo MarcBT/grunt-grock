@@ -29,7 +29,6 @@ grunt.initConfig({
   grock: {
     options: {
       // Grock options
-      github: false,
       index: 'Gruntfile.js',
       out: 'docCustomFolder',
       style: 'thin',
