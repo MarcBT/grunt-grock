@@ -25,21 +25,40 @@ module.exports = function(grunt) {
 
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['docs', '<%= grock.options.out %>']
+      tests: [
+        'docs',
+        '<%= grock.main.options.out %>',
+        '<%= grock.externals.options.out %>'
+      ]
     },
 
     // Configuration to be run (and then tested).
     grock: {
-      options: {
-        index: 'Gruntfile.js',
-        out: 'docCustomFolder',
-        style: 'thin',
-        verbose: true
+      main: {
+        options: {
+          index: 'Gruntfile.js',
+          out: 'out_main',
+          style: 'thin',
+          verbose: true,
+        },
+        src : [
+          './README.md','./**/*.js', '!./docs/**',
+          '!./<%= grock.main.options.out %>/**','!./node_modules/**'
+        ]
       },
-      files: [
-        './README.md','./**/*.js', '!./docs/**',
-        '!./<%= grock.options.out %>/**','!./node_modules/**'
-      ]
+      externals: {
+        options: {
+          index: 'Gruntfile.js',
+          out: 'out_externals',
+          style: 'thin',
+          extScripts: ['./externals/js/*.js'],
+          extStyles: ['./externals/css/*.css'],
+        },
+        src : [
+          './README.md','./**/*.js', '!./docs/**',
+          '!./<%= grock.externals.options.out %>/**','!./node_modules/**'
+        ]
+      }
     },
 
     // Unit tests.
