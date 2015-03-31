@@ -1,5 +1,8 @@
 # grunt-grock
 
+[![Dependency Status](https://david-dm.org/MarcBT/grunt-grock.png)](https://david-dm.org/MarcBT/grunt-grock)
+[![devDependency Status](https://david-dm.org/MarcBT/grunt-grock/dev-status.png)](https://david-dm.org/MarcBT/grunt-grock#info=devDependencies)
+
 > A simple grunt task to generate a project's documentation with [Grock](https://github.com/killercup/grock).
 
 ## Getting Started
@@ -44,8 +47,15 @@ grunt.initConfig({
 
 ### Options
 
-Take a look at the [`grock` repository](https://github.com/killercup/grock) to see the list of available options.
+Take a look at the [`grock` repository](https://github.com/killercup/grock) to see the list of available options.  
+Please note that `github` and `git-remote` options are not currently available in this grunt plugin. 
 
+
+## Todo
+
+- Add `github` and `git-remote` options
+- Add an option to be able to use a `.groc.json` file
+- Other options should override `.groc.json` file configuration
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
