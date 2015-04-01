@@ -1,8 +1,8 @@
 # grunt-grock
 
+[![Build Status](https://travis-ci.org/MarcBT/grunt-grock.svg?branch=master)](https://travis-ci.org/MarcBT/grunt-grock)
 [![Dependency Status](https://david-dm.org/MarcBT/grunt-grock.png)](https://david-dm.org/MarcBT/grunt-grock)
 [![devDependency Status](https://david-dm.org/MarcBT/grunt-grock/dev-status.png)](https://david-dm.org/MarcBT/grunt-grock#info=devDependencies)
-
 > A simple grunt task to generate a project's documentation with [Grock](https://github.com/killercup/grock).
 
 ## Getting Started
