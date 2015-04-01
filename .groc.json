@@ -1,0 +1,11 @@
+{
+  "glob": [
+    "*.md",
+    "Gruntfile.js",
+    "tasks/grock.json",
+    "test/grock_test.js"
+  ],
+  "index": "Gruntfile.js",
+  "indexes": "Gruntfile.js",
+  "out": "out_grocjson"
+}

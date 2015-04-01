@@ -28,7 +28,9 @@ module.exports = function(grunt) {
       tests: [
         'docs',
         '<%= grock.main.options.out %>',
-        '<%= grock.externals.options.out %>'
+        '<%= grock.externals.options.out %>',
+        'out_grocJson'
+        
       ]
     },
 
@@ -43,7 +45,9 @@ module.exports = function(grunt) {
         },
         src : [
           './README.md','./**/*.js', '!./docs/**',
-          '!./<%= grock.main.options.out %>/**','!./node_modules/**'
+          '!./<%= grock.main.options.out %>/**',
+          '!./<%= grock.externals.options.out %>/**',
+          '!./node_modules/**'
         ]
       },
       externals: {
@@ -56,8 +60,15 @@ module.exports = function(grunt) {
         },
         src : [
           './README.md','./**/*.js', '!./docs/**',
-          '!./<%= grock.externals.options.out %>/**','!./node_modules/**'
+          '!./<%= grock.main.options.out %>/**',
+          '!./<%= grock.externals.options.out %>/**',
+          '!./node_modules/**'
         ]
+      },
+      grocJson: {
+        options: {
+          grocjson: '.groc.json'
+        }
       }
     },
 
