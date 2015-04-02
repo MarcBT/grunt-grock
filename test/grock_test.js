@@ -21,39 +21,54 @@
 'use strict';
 
 var grunt = require('grunt'),
-  path = require('path'),
-  fs = require('fs'),
-  gf = grunt.file;
+    path = require('path'),
+    fs = require('fs'),
+    getArgs = require('../tasks/utils/getGrockArguments'),
+    gf = grunt.file;
 
 exports.grock = {
   setUp: function (done) {
     // setup here if necessary
     done();
   },
-  custom_options: function (test) {
+  isDocGenerated: function (test) {
     // Tests :
     // Check if Folder 'out' has been created
     // Checks if documentation files have been created
+    
+    var configs = grunt.util.toArray(grunt.config.get('grock')),
+        assertionCount = 0,
+        out, index, files;
+    
+    // Check each grunt-grock configuration defined
+    configs.forEach( function (config) {
+      
+      // Get arguments build from the configuration
+      config = getArgs(config);
+      out = config.out;
+      files = gf.expand(config.glob);
+      index = path.join(out,'index.html');
 
-    var config = grunt.config.get('grock').main,
-      outFolder = config.options.out,
-      files = gf.expand(config.src),
-      index = outFolder + '/index.html';
+      // Update assertion number expected
+      assertionCount += 1+files.length;
+      
+      // Perform tests
+      test.ok(grunt.file.exists(out + '/toc.js'), 'Output folder not created or empty');
+      files.forEach( function(file) {
+        var outFile = path.join(out,file.split('./')[1]+'.html');
+        test.ok(gf.exists(outFile) || gf.exists(index), 'File ' + outFile + ' not created');
+      });
 
-    test.expect(1 + files.length);
-
-    test.ok(grunt.file.exists(outFolder + '/toc.js'), 'Output folder not created or empty');
-    for (var i = 0; i < files.length; i++) {
-      var outFile = outFolder + '/' + files[i].split('./')[1] + '.html';
-      test.ok(gf.exists(outFile) || gf.exists(index), 'File ' + outFile + ' not created');
-    }
-
+      
+    });
+    
+    test.expect(assertionCount);
     test.done();
 
   },
-  externals: function (test) {
+  areExternalsApplied: function (test) {
     // Tests :
-    // Check if external styles have been inlined into doc   files
+    // Check if external styles have been inlined into generated doc files
 
     var options = grunt.config.get('grock').externals.options,
         externals = gf.expand(options.extScripts).concat(gf.expand(options.extStyles)),
