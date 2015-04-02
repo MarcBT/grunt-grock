@@ -1,13 +1,13 @@
 {
   "name": "grunt-grock",
   "description": "A simple grunt task to generate a project's documentation using Grock.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/MarcBT/grunt-grock",
-  "author": {
-    "name": "Marc Beuret",
-    "email": "marcbeuret@yahoo.fr",
-    "url": "https://twitter.com/MarcBeuret"
-  },
+  "author": "Marc Beuret",
+  "contributors": [
+    "Marc Beuret <marcbeuret@yahoo.fr> (https://twitter.com/MarcBeuret)",
+    "Erik Mueller <emueller@epages.com> (https://github.com/erikmueller/)"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/MarcBT/grunt-grock.git"
