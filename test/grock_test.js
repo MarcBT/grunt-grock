@@ -98,5 +98,33 @@ exports.grock = {
     });
     
     test.done();
+  },
+  overrideGrocJsonOptions: function (test) {
+    // Tests :
+    // When options are defined both in .groc.json and gruntfile,
+    // check that gruntfile options override .groc.json ones
+    var config = grunt.config.get('grock').grocJsonOverride,
+        generated = getArgs(config),
+        grocJsonOpts = gf.readJSON(config.options.grocjson),
+        gruntOpts = config.options,
+        grocJsonKeys,
+        overrideCount = 0;
+    
+    // Add "src" files array as "glob" key
+    gruntOpts.glob = config.src;
+    
+    // Get options defined into .groc.file
+    // Check if these options are also inside grunt config
+    // and if so, check that grunt config is used
+    grocJsonKeys = Object.keys(grocJsonOpts);
+    grocJsonKeys.forEach( function (option) {
+      if(gruntOpts[option]) {
+        overrideCount++;
+        test.ok(gruntOpts[option].toString() === generated[option].toString(), 'Option '+option+' defined into .groc.file is not overriden by option defined in grunt config');
+      }
+    });
+    
+    test.expect(overrideCount);
+    test.done();
   }
 };

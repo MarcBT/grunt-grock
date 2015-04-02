@@ -69,6 +69,21 @@ module.exports = function(grunt) {
         options: {
           grocjson: '.groc.json'
         }
+      },
+      grocJsonOverride: {
+        options: {
+          grocjson: '.groc.json',
+          index: 'README.md',
+          indexes: 'README.md',
+          verbose: false,
+          out: 'out_grocjson_override'
+        },
+        src : [
+          '*.json',
+          '*.md',
+          'Gruntfile.js',
+          'tasks/**/*.js',
+        ]
       }
     },
 
