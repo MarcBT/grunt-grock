@@ -54,8 +54,6 @@ Please note that `github` and `git-remote` options are not currently available i
 ## Todo
 
 - Add `github` and `git-remote` options
-- Add an option to be able to use a `.groc.json` file
-- Other options should override `.groc.json` file configuration
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
