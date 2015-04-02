@@ -13,9 +13,8 @@ module.exports = function(data) {
   var gf = require('grunt').file,
       options = data.options,
       grocjson = {},
-      glob,
-      extScripts,
-      extStyles,
+      glob, extScripts, extStyles,
+      verbose, whitespaceAfterToken,
       args;
   
   // Get .groc.json file if one is specified into grunt options
@@ -38,16 +37,19 @@ module.exports = function(data) {
   glob       = (data.src && data.src.length > 0) ? data.src : grocjson.glob;
   extScripts = options.extScripts || grocjson.extScripts;
   extStyles  = options.extStyles || grocjson.extStyles;
+  // Prepare boolean options
+  verbose = (options.hasOwnProperty('verbose')) ? options.verbose : grocjson.verbose;
+  whitespaceAfterToken = (options.hasOwnProperty('whitespaceAfterToken')) ? options.whitespaceAfterToken : grocjson.whitespaceAfterToken;
   
   args = {
     'glob': glob || 'lib/*.coffee',
     'out': options.out || grocjson.out || 'docs/',
     'style': options.style || grocjson.style || 'solarized',
-    'verbose': options.verbose || grocjson.verbose || false,
-    'index': options.index ||grocjson.index || 'Readme.md',
+    'verbose': verbose || false,
+    'index': options.index || grocjson.index || 'Readme.md',
     'indexes': options.indexes || grocjson.indexes || 'Readme.md',
     'root': options.root || grocjson.root || '.',
-    'whitespace-after-token': options.whitespaceAfterToken || grocjson.whitespaceAfterToken || false,
+    'whitespace-after-token': whitespaceAfterToken || false,
     'ext-scripts': (extScripts) ? gf.expand(extScripts) : false,
     'ext-styles': (extStyles) ? gf.expand(extStyles) : false,
     'start': process.hrtime()
