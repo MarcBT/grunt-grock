@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('grock', 'A simple grunt task to generate a project\'s documentation using Grock.', function() {
     var done = this.async(),
-        args = getArgs(this);
+        args = getArgs(this.data);
     
     // Perform grock task
     grock(args)

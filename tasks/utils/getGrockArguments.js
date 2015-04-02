@@ -8,10 +8,10 @@
 
 'use strict';
 
-module.exports = function(config) {
+module.exports = function(data) {
 
   var gf = require('grunt').file,
-      options = config.options(),
+      options = data.options,
       grocjson = {},
       glob,
       extScripts,
@@ -35,7 +35,7 @@ module.exports = function(config) {
   //   - Defaults options
   //
   // Prepare glob, extScripts and extStyles
-  glob       = (config.filesSrc.length > 0) ? config.filesSrc : grocjson.glob;
+  glob       = (data.src && data.src.length > 0) ? data.src : grocjson.glob;
   extScripts = options.extScripts || grocjson.extScripts;
   extStyles  = options.extStyles || grocjson.extStyles;
   
