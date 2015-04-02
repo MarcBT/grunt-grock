@@ -1,0 +1,8 @@
+/out*
+/test
+/externals
+.npmignore
+.jshintrc
+.travis.yml
+.groc.json
+Gruntfile.js
