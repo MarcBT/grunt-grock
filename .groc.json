@@ -2,10 +2,11 @@
   "glob": [
     "*.md",
     "Gruntfile.js",
-    "tasks/grock.json",
+    "tasks/grock.js",
     "test/grock_test.js"
   ],
   "index": "Gruntfile.js",
   "indexes": "Gruntfile.js",
+  "verbose": true,
   "out": "out_grocjson"
 }
