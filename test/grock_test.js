@@ -82,5 +82,21 @@ exports.grock = {
     });
     
     test.done();
+  },
+  getGrocJsonOptions: function (test) {
+    // Tests :
+    // Check if options from .groc.json are correctly passed to the args object
+    var config = grunt.config.get('grock').grocJson,
+        original = gf.readJSON(config.options.grocjson),
+        generated = getArgs(config),
+        options = Object.keys(original);
+    
+    test.expect(options.length);
+    
+    options.forEach( function (option) {
+      test.ok(generated[option].toString() === original[option].toString(), 'Option '+option+' of.groc.json is not correctly passed to grock');
+    });
+    
+    test.done();
   }
 };
