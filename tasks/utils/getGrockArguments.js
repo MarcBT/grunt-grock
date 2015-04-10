@@ -8,14 +8,27 @@
 
 'use strict';
 
-module.exports = function(data) {
+module.exports = function(files, options) {
 
   var gf = require('grunt').file,
-      options = data.options,
       grocjson = {},
       glob, extScripts, extStyles,
       verbose, whitespaceAfterToken,
       args;
+  
+  // Define default options
+  var defaultOptions = {
+    'glob': 'lib/*.coffee',
+    'out': 'docs/',
+    'style': 'solarized',
+    'verbose': false,
+    'index': 'Readme.md',
+    'indexes': 'Readme.md',
+    'root': '.',
+    'whitespace-after-token': false,
+    'ext-scripts': false,
+    'ext-styles': false
+  };
   
   // Get .groc.json file if one is specified into grunt options
   if (options.hasOwnProperty('grocjson')) {
@@ -34,7 +47,7 @@ module.exports = function(data) {
   //   - Defaults options
   //
   // Prepare glob, extScripts and extStyles
-  glob       = (data.src && data.src.length > 0) ? data.src : grocjson.glob;
+  glob       = (files.length > 0) ? files : grocjson.glob;
   extScripts = options.extScripts || grocjson.extScripts;
   extStyles  = options.extStyles || grocjson.extStyles;
   // Prepare boolean options
@@ -42,16 +55,16 @@ module.exports = function(data) {
   whitespaceAfterToken = (options.hasOwnProperty('whitespaceAfterToken')) ? options.whitespaceAfterToken : grocjson.whitespaceAfterToken;
   
   args = {
-    'glob': glob || 'lib/*.coffee',
-    'out': options.out || grocjson.out || 'docs/',
-    'style': options.style || grocjson.style || 'solarized',
-    'verbose': verbose || false,
-    'index': options.index || grocjson.index || 'Readme.md',
-    'indexes': options.indexes || grocjson.indexes || 'Readme.md',
-    'root': options.root || grocjson.root || '.',
-    'whitespace-after-token': whitespaceAfterToken || false,
-    'ext-scripts': (extScripts) ? gf.expand(extScripts) : false,
-    'ext-styles': (extStyles) ? gf.expand(extStyles) : false,
+    'glob': glob || defaultOptions.glob,
+    'out': options.out || grocjson.out || defaultOptions.out,
+    'style': options.style || grocjson.style || defaultOptions.style,
+    'verbose': verbose || defaultOptions.verbose,
+    'index': options.index || grocjson.index || defaultOptions.index,
+    'indexes': options.indexes || grocjson.indexes || defaultOptions.indexes,
+    'root': options.root || grocjson.root || defaultOptions.root,
+    'whitespace-after-token': whitespaceAfterToken || defaultOptions['whitespace-after-token'],
+    'ext-scripts': (extScripts) ? gf.expand(extScripts) : defaultOptions['ext-scripts'],
+    'ext-styles': (extStyles) ? gf.expand(extStyles) : defaultOptions['ext-styles'],
     'start': process.hrtime()
   };
   
