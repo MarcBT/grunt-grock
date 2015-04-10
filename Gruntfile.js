@@ -26,16 +26,23 @@ module.exports = function(grunt) {
     // Before generating any new files, remove any previously-created files.
     clean: {
       tests: [
-        'docs',
-        '<%= grock.main.options.out %>',
-        '<%= grock.externals.options.out %>',
-        'out_grocJson'
-        
+        'doc*/',
+        'out_*/'
       ]
     },
 
     // Configuration to be run (and then tested).
     grock: {
+      options: {
+        // Grock options
+        index: 'Gruntfile.js',
+        style: 'thin',
+        verbose: true
+      },
+      files: [
+        './README.md','./**/*.js', // Generate documentation for these files
+        '!./docs/**','!./node_modules/**' //  Do not generate documentation for these files
+      ],
       main: {
         options: {
           index: 'Gruntfile.js',

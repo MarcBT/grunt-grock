@@ -24,107 +24,133 @@ var grunt = require('grunt'),
     path = require('path'),
     fs = require('fs'),
     getArgs = require('../tasks/utils/getGrockArguments'),
+    grock = require('grock').generator,
     gf = grunt.file;
+
+function testDocGeneration (args, test) {
+  var out = args.out,
+  files = gf.expand(args.glob),
+  index = path.join(out,'index.html');
+
+  test.ok(grunt.file.exists(out + '/toc.js'), 'Output folder not created or empty');
+  files.forEach( function(file) {
+    var outFile = path.join(out,file.split('./')[1]+'.html');
+    test.ok(gf.exists(outFile) || gf.exists(index), 'File ' + outFile + ' not created');
+  });
+}
+
+function testExpectedOptions (current, expected, test) {
+    Object.keys(expected).forEach( function (option) {
+    var testOk;
+    switch (option) {
+        case 'extScripts':
+          testOk = ( current['ext-scripts'].toString() === gf.expand(expected[option]).toString() );
+          break;
+        case 'extStyles':
+          testOk = ( current['ext-styles'].toString() === gf.expand(expected[option]).toString() );
+          break;
+        case 'whitespaceAfterToken':
+          testOk = (current['whitespace-after-token'].toString() === expected[option].toString() );
+          break;
+        default:
+          testOk = (current[option].toString() === expected[option].toString());
+          break
+    }
+    test.ok(testOk,'Option '+option+'applied is not the one expected.');
+  });
+}
+
 
 exports.grock = {
   setUp: function (done) {
-    // setup here if necessary
     done();
   },
-  isDocGenerated: function (test) {
-    // Tests :
-    // Check if Folder 'out' has been created
-    // Checks if documentation files have been created
+  
+  defaultOptions: function(test) {
+    var filesSrc = [],
+        options = {},
+        expectedArgs = { // grock default options
+          'glob': 'lib/*.coffee',
+          'out': 'docs/',
+          'style': 'solarized',
+          'verbose': false,
+          'index': 'Readme.md',
+          'indexes': 'Readme.md',
+          'root': '.',
+          'whitespace-after-token': false,
+          'ext-scripts': false,
+          'ext-styles': false
+        },
+        grockArgs = getArgs(filesSrc, options);
     
-    var configs = grunt.util.toArray(grunt.config.get('grock')),
-        assertionCount = 0,
-        out, index, files;
+    test.expect(1+grunt.util.toArray(expectedArgs).length);
     
-    // Check each grunt-grock configuration defined
-    configs.forEach( function (config) {
-      
-      // Get arguments build from the configuration
-      config = getArgs(config);
-      out = config.out;
-      files = gf.expand(config.glob);
-      index = path.join(out,'index.html');
-
-      // Update assertion number expected
-      assertionCount += 1+files.length;
-      
-      // Perform tests
-      test.ok(grunt.file.exists(out + '/toc.js'), 'Output folder not created or empty');
-      files.forEach( function(file) {
-        var outFile = path.join(out,file.split('./')[1]+'.html');
-        test.ok(gf.exists(outFile) || gf.exists(index), 'File ' + outFile + ' not created');
-      });
-
-      
+    testExpectedOptions (grockArgs, expectedArgs, test);
+    
+    grock(grockArgs).then(function(){
+      testDocGeneration(expectedArgs, test);
+      test.done();
     });
-    
-    test.expect(assertionCount);
-    test.done();
-
   },
+  
   areExternalsApplied: function (test) {
-    // Tests :
-    // Check if external styles have been inlined into generated doc files
-
-    var options = grunt.config.get('grock').externals.options,
+    var filesSrc = grunt.config.get('grock').externals.src,
+        options = grunt.config.get('grock').externals.options,
         externals = gf.expand(options.extScripts).concat(gf.expand(options.extStyles)),
-        index = gf.read(path.join(__dirname, '..', options.out, 'index.html'));
+        expectedArgs = options,
+        grockArgs = getArgs(filesSrc, options);
 
-    test.expect(externals.length);
+    test.expect(1+grunt.util.toArray(expectedArgs).length+externals.length+gf.expand(filesSrc).length);
     
-    externals.forEach(function(file) {
-      var extraContent = gf.read(file);
-      test.ok( (index.indexOf(extraContent) > -1), 'Content of external file '+file+ 'has not been inlined');
+    testExpectedOptions (grockArgs, expectedArgs, test);
+    
+    grock(grockArgs).then(function(){
+      testDocGeneration(grockArgs, test);
+      
+      var index = gf.read(path.join(__dirname, '..', options.out, 'index.html'));
+      externals.forEach(function(file) {
+        var extraContent = gf.read(file);
+        test.ok( (index.indexOf(extraContent) > -1), 'Content of external file '+file+ 'has not been inlined');
+      });
+      test.done();
     });
-    
-    test.done();
   },
+  
   getGrocJsonOptions: function (test) {
-    // Tests :
-    // Check if options from .groc.json are correctly passed to the args object
-    var config = grunt.config.get('grock').grocJson,
-        original = gf.readJSON(config.options.grocjson),
-        generated = getArgs(config),
-        options = Object.keys(original);
+    var filesSrc = [],
+        options = grunt.config.get('grock').grocJson.options,
+        expectedArgs = gf.readJSON(options.grocjson),
+        grockArgs = getArgs(filesSrc, options);
+
+    test.expect(1+grunt.util.toArray(expectedArgs).length+gf.expand(expectedArgs.glob).length);
     
-    test.expect(options.length);
+    testExpectedOptions (grockArgs, expectedArgs, test);
     
-    options.forEach( function (option) {
-      test.ok(generated[option].toString() === original[option].toString(), 'Option '+option+' of.groc.json is not correctly passed to grock');
+    grock(grockArgs).then(function(){
+      testDocGeneration(expectedArgs, test);
+      test.done();
     });
-    
-    test.done();
   },
+  
   overrideGrocJsonOptions: function (test) {
-    // Tests :
-    // When options are defined both in .groc.json and gruntfile,
-    // check that gruntfile options override .groc.json ones
-    var config = grunt.config.get('grock').grocJsonOverride,
-        generated = getArgs(config),
-        grocJsonOpts = gf.readJSON(config.options.grocjson),
-        gruntOpts = config.options,
-        grocJsonKeys,
-        overrideCount = 0;
+    var filesSrc = grunt.config.get('grock').grocJsonOverride.src,
+        options = grunt.config.get('grock').grocJsonOverride.options,
+        expectedArgs = {
+          glob: filesSrc,
+          index: 'README.md',
+          indexes: 'README.md',
+          verbose: false,
+          out: 'out_grocjson_override'
+        },
+        grockArgs = getArgs(filesSrc, options);
+
+    test.expect(1+grunt.util.toArray(expectedArgs).length+gf.expand(filesSrc).length);
     
-    // Add "src" files array as "glob" key
-    gruntOpts.glob = config.src;
+    testExpectedOptions (grockArgs, expectedArgs, test);
     
-    // Get options defined into .groc.file
-    // Check if these options are also inside grunt config
-    // and if so, check that grunt config is used
-    grocJsonKeys = Object.keys(grocJsonOpts);
-    grocJsonKeys.forEach( function (option) {
-      if(gruntOpts[option]) {
-        overrideCount++;
-        test.ok(gruntOpts[option].toString() === generated[option].toString(), 'Option '+option+' defined into .groc.file is not overriden by option defined in grunt config');
-      }
+    grock(grockArgs).then(function(){
+      testDocGeneration(expectedArgs, test);
+      test.done();
     });
-    
-    test.expect(overrideCount);
-    test.done();
   }
 };
