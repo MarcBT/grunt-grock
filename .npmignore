@@ -1,6 +1,7 @@
 /out*
 /test
 /externals
+/docs
 .npmignore
 .jshintrc
 .travis.yml
